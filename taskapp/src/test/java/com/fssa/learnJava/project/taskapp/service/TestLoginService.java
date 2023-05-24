@@ -36,7 +36,7 @@ class TestLoginService {
 			user.setName("vinit");
 			user.setPassword("vinitgo*(");
 			user.setEmail("vinit@freshworks.com");
-			Assertions.assertEquals(ls.registerUser(user), "Registration Successful");
+			Assertions.assertEquals(ls.registerUser(user), "Email id vinit@freshworks.com is already registered");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
