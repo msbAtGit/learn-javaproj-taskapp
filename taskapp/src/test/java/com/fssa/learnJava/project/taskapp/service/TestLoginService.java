@@ -25,4 +25,24 @@ class TestLoginService {
 			fail("Exception while tyring to login");
 		}
 	}
+	
+	@Test
+	public void registerUser() {
+		
+		try {
+			LoginService ls = new LoginService();
+			User user = new User();
+
+			user.setName("vinit");
+			user.setPassword("vinitgo*(");
+			user.setEmail("vinit@freshworks.com");
+			Assertions.assertEquals(ls.registerUser(user), "Registration Successful");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Exception while tyring to Registeration");
+		}
+		
+		
+	}
 }

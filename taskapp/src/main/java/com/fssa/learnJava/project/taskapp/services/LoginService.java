@@ -39,17 +39,20 @@ public class LoginService {
 		
 	}
 	
-	public String registerUser(User user) throws SQLException {
+	public String registerUser(User user) throws Exception {
 		User userFromDb = userdao.getUserByEmail(user.getEmail());
 		
-		if (userFromDb != null) { 
+		if(userFromDb.getEmail() != null && userFromDb.getEmail().equals(user.getEmail())) {
 			return "Email id " + user.getEmail() + " is already registered"; 
 		}
 		else if (user.getPassword().length() < 8) {
 			return "Password length must have minimum 8 characters";
 		}
 		else {
-			return "Registration Successful";
+			if (userdao.createUser(user))
+				return "Registration Successful";
+			else
+				return "Registration Failed";
 		}
 	}
 }

@@ -12,7 +12,7 @@ import com.fssa.learnJava.project.taskapp.services.LoginService;
  * @author BharathwajSoundarara
  *
  */
-public class TestLogin {
+public class TestLoginFeature {
 	public static void main(String[] args) throws Exception{
 		LoginService loginService = new LoginService();
 		
