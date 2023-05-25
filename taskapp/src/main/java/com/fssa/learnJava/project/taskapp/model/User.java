@@ -1,4 +1,4 @@
-package com.fssa.learnJava.project.taskapp.domain;
+package com.fssa.learnJava.project.taskapp.model;
 
 public class User {
 	private int id;

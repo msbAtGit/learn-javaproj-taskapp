@@ -6,7 +6,7 @@ package com.fssa.learnJava.project.taskapp.services;
 import java.sql.SQLException;
 
 import com.fssa.learnJava.project.taskapp.dao.UserDao;
-import com.fssa.learnJava.project.taskapp.domain.User;
+import com.fssa.learnJava.project.taskapp.model.User;
 
 /**
  * @author BharathwajSoundarara

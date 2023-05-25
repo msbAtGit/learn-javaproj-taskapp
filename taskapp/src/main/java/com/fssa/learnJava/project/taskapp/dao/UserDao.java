@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.fssa.learnJava.project.taskapp.domain.User;
+import com.fssa.learnJava.project.taskapp.model.User;
 
 
 /**
