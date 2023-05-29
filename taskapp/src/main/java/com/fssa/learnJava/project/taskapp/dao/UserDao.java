@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.fssa.learnJava.project.taskapp.dao.exception.DAOException;
+import com.fssa.learnJava.project.taskapp.dao.exception.DaoException;
 import com.fssa.learnJava.project.taskapp.model.User;
 
 /**
@@ -21,18 +21,18 @@ public class UserDao {
 	Connection connection;
 	Statement stmt;
 
-	public UserDao() throws DAOException {
+	public UserDao() throws DaoException {
 		try {
 			connection = ConnectionUtil.getConnection();
 			stmt = connection.createStatement();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException(e);
+			throw new DaoException(e);
 		}
 
 	}
 
-	public boolean createUser(User user) throws DAOException {
+	public boolean createUser(User user) throws DaoException {
 
 		String query = "INSERT INTO USERS (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
 
@@ -49,7 +49,7 @@ public class UserDao {
 				return false;
 			// Example for multi catch
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DaoException(e);
 		}
 
 	}
@@ -58,7 +58,7 @@ public class UserDao {
 
 	}
 
-	public User getUser(String userName) throws DAOException {
+	public User getUser(String userName) throws DaoException {
 		User userFromDB = new User();
 
 		// Step 04: Execute SELECT Query
@@ -79,13 +79,13 @@ public class UserDao {
 				}
 			}
 		} catch (SQLException sqe) {
-			throw new DAOException(sqe);
+			throw new DaoException(sqe);
 		}
 
 		return userFromDB;
 	}
 
-	public User getUserByEmail(String email) throws DAOException {
+	public User getUserByEmail(String email) throws DaoException {
 
 		User userFromDB = new User();
 		final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE email_id = ?";
@@ -111,7 +111,7 @@ public class UserDao {
 			}
 
 		} catch (SQLException sqe) {
-			throw new DAOException(sqe);
+			throw new DaoException(sqe);
 		}
 		return userFromDB;
 	}

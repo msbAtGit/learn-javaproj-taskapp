@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import com.fssa.learnJava.project.taskapp.InvalidUserException;
 import com.fssa.learnJava.project.taskapp.dao.UserDao;
-import com.fssa.learnJava.project.taskapp.dao.exception.DAOException;
+import com.fssa.learnJava.project.taskapp.dao.exception.DaoException;
 import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.services.exception.ServiceException;
 import com.fssa.learnJava.project.taskapp.validation.UserValidator;
@@ -27,7 +27,7 @@ public class LoginService {
 		try {
 			this.userdao = new UserDao();
 			this.userValidator = new UserValidator(this.minPasswordLen);
-		} catch (DAOException | ValidatorInitializationException e) {
+		} catch (DaoException | ValidatorInitializationException e) {
 			throw new ServiceException(e);
 		}
 		
@@ -52,7 +52,7 @@ public class LoginService {
 			return "Invalid Login Credentials";
 		}
 		}
-		catch(DAOException ex) {
+		catch(DaoException ex) {
 			throw new ServiceException (ex);
 		}
 		
@@ -71,7 +71,7 @@ public class LoginService {
 		
 		try {
 			userFromDb = userdao.getUserByEmail(user.getEmail());
-		} catch (DAOException e) {
+		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			throw new ServiceException(e);
 		}
