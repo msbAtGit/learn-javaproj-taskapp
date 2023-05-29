@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.fssa.learnJava.project.taskapp.dao.exception.DAOException;
 import com.fssa.learnJava.project.taskapp.model.User;
-
 
 /**
  * @author BharathwajSoundarara
@@ -19,7 +19,6 @@ import com.fssa.learnJava.project.taskapp.model.User;
 public class UserDao {
 
 	Connection connection;
-	PreparedStatement pst;
 	Statement stmt;
 
 	public UserDao() throws Exception {
@@ -27,80 +26,118 @@ public class UserDao {
 		stmt = connection.createStatement();
 	}
 
-	public boolean createUser(User user) throws Exception {
-		connection = ConnectionUtil.getConnection();
-		String query ="INSERT INTO USERS (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
-		PreparedStatement pst = connection.prepareStatement(query);
-		pst.setString(1, user.getName());
-		pst.setString(2, user.getEmail());
-		pst.setString(3, "NA");
-		pst.setString(4, user.getPassword());
-		int rows2 = pst.executeUpdate();
-		if(rows2 > 0)
-			return true;
-		else 
-			return false;
+	public boolean createUser(User user) throws DAOException {
+		
+		String query = "INSERT INTO USERS (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
+		PreparedStatement pst = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			pst = connection.prepareStatement(query);
+			pst.setString(1, user.getName());
+			pst.setString(2, user.getEmail());
+			pst.setString(3, "NA");
+			pst.setString(4, user.getPassword());
+			int rows2 = pst.executeUpdate();
+			if (rows2 > 0)
+				return true;
+			else
+				return false;
+			//Example for multi catch
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new DAOException(e);
+		}
+		
 	}
 
 	public void updateUser(User user) {
 
 	}
 
-	public User getUser(String userName) throws SQLException {
+	public User getUser(String userName) throws DAOException {
 		User userFromDB = new User();
-		// Step 04: Execute SELECT Query
-		final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE user_name = ?";
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			// Step 04: Execute SELECT Query
+			final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE user_name = ?";
 
-		PreparedStatement pst = connection.prepareStatement(selectQuery);
-		// Step 05: Get the resultset
-		pst.setString(1, userName);
+			pst = connection.prepareStatement(selectQuery);
+			// Step 05: Get the ResultSet
+			pst.setString(1, userName);
 
-		ResultSet rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
-		// Step 06: Iterate the result
-		while (rs.next()) {
-			userFromDB.setId(rs.getInt("user_id"));
-			userFromDB.setName(rs.getString("user_name"));
-			userFromDB.setPassword(rs.getString("password"));
-			userFromDB.setEmail((rs.getString("email_id")));
+			// Step 06: Iterate the result
+			while (rs.next()) {
+				userFromDB.setId(rs.getInt("user_id"));
+				userFromDB.setName(rs.getString("user_name"));
+				userFromDB.setPassword(rs.getString("password"));
+				userFromDB.setEmail((rs.getString("email_id")));
 
+			}
+		} catch (SQLException sqe) {
+			throw new DAOException(sqe);
+		} finally {
+			// Step 07: close the connection resources
+			try {
+				rs.close();
+				pst.close();
+			} catch (SQLException e) {
+				throw new DAOException(e);
+			}
 		}
-
-		// Step 07: close the connection resources
-		rs.close();
-		pst.close();
-		connection.close();
 
 		return userFromDB;
 	}
 
-	public User getUserByEmail(String email) throws SQLException {
-		
+	public User getUserByEmail(String email) throws DAOException {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		User userFromDB = new User();
-		// Step 04: Execute SELECT Query
-		final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE email_id = ?";
+		try {
 
-		PreparedStatement pst = connection.prepareStatement(selectQuery);
+			// Step 04: Execute SELECT Query
+			final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE email_id = ?";
 
-		pst.setString(1, email);
+			pst = connection.prepareStatement(selectQuery);
 
-		ResultSet rs = pst.executeQuery();
+			pst.setString(1, email);
 
-		// Step 06: Iterate the result
-		while (rs.next()) {
-			userFromDB.setId(rs.getInt("user_id"));
-			userFromDB.setName(rs.getString("user_name"));
-			userFromDB.setPassword(rs.getString("password"));
-			userFromDB.setEmail((rs.getString("email_id")));
+			rs = pst.executeQuery();
+
+			// Step 06: Iterate the result
+			while (rs.next()) {
+				userFromDB.setId(rs.getInt("user_id"));
+				userFromDB.setName(rs.getString("user_name"));
+				userFromDB.setPassword(rs.getString("password"));
+				userFromDB.setEmail((rs.getString("email_id")));
+
+			}
+
+		} catch (SQLException sqe) {
+			throw new DAOException(sqe);
+		}
+		// Step 07: close the connection resources
+		finally {
+			try {
+				rs.close();
+				pst.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw new DAOException(e);
+			}
 
 		}
-
-		// Step 07: close the connection resources
-		rs.close();
-		pst.close();
-		connection.close();
-
 		return userFromDB;
 	}
-
+	
+	@Override
+	public void finalize() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
