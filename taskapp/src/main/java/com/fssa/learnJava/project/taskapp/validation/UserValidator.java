@@ -9,7 +9,7 @@ public class UserValidator {
 
 	private int minLength;
 
-	private final String emailValidationRegEx = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$";
+	private final String emailValidationRegEx = "^(.+)@(\\S+)$";
 
 	public UserValidator(int minLength) throws ValidatorInitializationException {
 		if (minLength < 0) {
