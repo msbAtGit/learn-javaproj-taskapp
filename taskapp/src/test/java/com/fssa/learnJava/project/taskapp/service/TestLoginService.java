@@ -21,7 +21,7 @@ class TestLoginService {
 			user.setName("bharathwaj");
 			user.setPassword("mypassword*(");
 
-			Assertions.assertEquals(ls.login(user), "SUCCESSFUL");
+			Assertions.assertEquals("SUCCESSFUL",ls.login(user));
 		} catch (ServiceException e) {
 			fail("Exception while tyring to login");
 		}
@@ -37,7 +37,7 @@ class TestLoginService {
 			user.setName("vinit");
 			user.setPassword("vinit1234");
 			user.setEmail("vinit@freshworks.com");
-			Assertions.assertEquals(ls.registerUser(user), "Email id vinit@freshworks.com is already registered");
+			Assertions.assertEquals("Email id vinit@freshworks.com is already registered",ls.registerUser(user));
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
