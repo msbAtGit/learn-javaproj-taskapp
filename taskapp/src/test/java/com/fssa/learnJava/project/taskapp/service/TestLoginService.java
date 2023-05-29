@@ -35,7 +35,7 @@ class TestLoginService {
 			User user = new User();
 
 			user.setName("vinit");
-			user.setPassword("vindfit*(");
+			user.setPassword("");
 			user.setEmail(null);
 			Assertions.assertEquals(ls.registerUser(user), "Email id vinit@freshworks.com is already registered");
 		} catch (ServiceException e) {
