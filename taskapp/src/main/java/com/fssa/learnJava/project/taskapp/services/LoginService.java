@@ -11,6 +11,7 @@ import com.fssa.learnJava.project.taskapp.dao.exception.DAOException;
 import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.services.exception.ServiceException;
 import com.fssa.learnJava.project.taskapp.validation.UserValidator;
+import com.fssa.learnJava.project.taskapp.validation.ValidatorInitializationException;
 
 /**
  * @author BharathwajSoundarara
@@ -22,9 +23,14 @@ public class LoginService {
 	private UserValidator userValidator;
 	private final int minPasswordLen = 8;
 	
-	public LoginService() throws Exception {
-		this.userdao = new UserDao();
-		this.userValidator = new UserValidator(this.minPasswordLen);
+	public LoginService() throws ServiceException {
+		try {
+			this.userdao = new UserDao();
+			this.userValidator = new UserValidator(this.minPasswordLen);
+		} catch (DAOException | ValidatorInitializationException e) {
+			throw new ServiceException(e);
+		}
+		
 	}
 	
 	public String login (User user) throws ServiceException {
@@ -56,6 +62,14 @@ public class LoginService {
 	public String registerUser(User user) throws ServiceException {
 		User userFromDb;
 		try {
+			if(!userValidator.validate(user)) {
+				throw new ServiceException("invalid User");
+			}
+		} catch (InvalidUserException  e1) {
+			throw new ServiceException("Invalid User",e1);
+		}
+		
+		try {
 			userFromDb = userdao.getUserByEmail(user.getEmail());
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -63,13 +77,7 @@ public class LoginService {
 		}
 		
 		
-		try {
-			if(!userValidator.validate(user)) {
-				throw new ServiceException("invalid User");
-			}
-		} catch (InvalidUserException  e1) {
-			throw new ServiceException("Invalid User",e1);
-		}
+		
 		//TODO: Add user_name, email and attributes first before adding logic based business logic
 		if(userFromDb.getEmail() != null && userFromDb.getEmail().equals(user.getEmail())) {
 			return "Email id " + user.getEmail() + " is already registered"; 

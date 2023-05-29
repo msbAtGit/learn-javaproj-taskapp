@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.services.LoginService;
+import com.fssa.learnJava.project.taskapp.services.exception.ServiceException;
 
 class TestLoginService {
 
@@ -21,7 +22,7 @@ class TestLoginService {
 			user.setPassword("mypassword*(");
 
 			Assertions.assertEquals(ls.login(user), "SUCCESSFUL");
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			fail("Exception while tyring to login");
 		}
 	}
@@ -34,10 +35,10 @@ class TestLoginService {
 			User user = new User();
 
 			user.setName("vinit");
-			user.setPassword("vinitgo*(");
-			user.setEmail("vinit@freshworks.com");
+			user.setPassword("vindfit*(");
+			user.setEmail(null);
 			Assertions.assertEquals(ls.registerUser(user), "Email id vinit@freshworks.com is already registered");
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Exception while tyring to Registeration");

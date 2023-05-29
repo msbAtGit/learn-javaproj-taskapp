@@ -21,9 +21,15 @@ public class UserDao {
 	Connection connection;
 	Statement stmt;
 
-	public UserDao() throws Exception {
-		connection = ConnectionUtil.getConnection();
-		stmt = connection.createStatement();
+	public UserDao() throws DAOException {
+		try {
+			connection = ConnectionUtil.getConnection();
+			stmt = connection.createStatement();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e);
+		}
+		
 	}
 
 	public boolean createUser(User user) throws DAOException {
