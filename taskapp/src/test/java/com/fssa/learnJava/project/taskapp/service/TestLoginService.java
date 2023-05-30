@@ -27,8 +27,10 @@ class TestLoginService {
 		}
 	}
 	
+	//TODO: Invalid login credentials test case
+	
 	@Test
-	public void registerUser() {
+	public void registerUser() {//TODO: registerUserWithExistingEmail
 		
 		try {
 			LoginService ls = new LoginService();
@@ -71,6 +73,8 @@ class TestLoginService {
 			user.setName("");
 			user.setPassword("");
 			user.setEmail("Testpass" + System.nanoTime() + "@freshworks.com");
+			ls.registerUser(user);
+			fail("Unexcepted success of registration");
 			
 		} catch (ServiceException e) {
 			Assertions.assertTrue(true);

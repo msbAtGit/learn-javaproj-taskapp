@@ -11,6 +11,8 @@ import java.sql.Statement;
 
 import com.fssa.learnJava.project.taskapp.dao.exception.DaoException;
 import com.fssa.learnJava.project.taskapp.model.User;
+import com.fssa.learnJava.project.taskapp.validation.UserValidator;
+import com.fssa.learnJava.project.taskapp.validation.exceptions.ValidatorInitializationException;
 
 /**
  * @author BharathwajSoundarara
@@ -20,17 +22,21 @@ public class UserDao {
 
 	Connection connection;
 	Statement stmt;
+	UserValidator userValidator;
 
 	public UserDao() throws DaoException {
 		try {
+			userValidator = new UserValidator(8);
 			connection = ConnectionUtil.getConnection();
 			stmt = connection.createStatement();
-		} catch (ClassNotFoundException | SQLException e) {// Example for multi catch
+		} catch (ValidatorInitializationException | ClassNotFoundException | SQLException e) {// Example for multi catch
 			throw new DaoException(e);
-		}
+		} 
 	}
+	
 
 	public boolean createUser(User user) throws DaoException {
+		//TODO: Inside each method open the connection and then close the connection.
 
 		String query = "INSERT INTO users (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
 
@@ -55,18 +61,20 @@ public class UserDao {
 	public void updateUser(User user) {
 
 	}
-
+	//TODO: Best practice rename getUser as findByName should be by using column name in the DB
 	public User getUser(String userName) throws DaoException {
+		//TODO: Make it a null and create it only if the row exists
 		User userFromDB = new User();
 
-		// Step 04: Execute SELECT Query
+		// Its a good practice to use ? instead of harding coding string since due to hard parse vs soft parse
 		final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE user_name = ?";
-
+		//Best Practice: To be followed by students
 		try (PreparedStatement pst = connection.prepareStatement(selectQuery)) {
 			// Step 05: Get the ResultSet
 			pst.setString(1, userName);
 			try (ResultSet rs = pst.executeQuery()) {
-
+				
+				//TODO: Best Practice remove the while loop and use if condition since its a unique row with only 1 value
 				// Step 06: Iterate the result
 				while (rs.next()) {
 					userFromDB.setId(rs.getInt("user_id"));
@@ -77,6 +85,7 @@ public class UserDao {
 				}
 			}
 		} catch (SQLException sqe) {
+			//TODO: Add a logger for the exception trace.
 			throw new DaoException(sqe);
 		}
 
