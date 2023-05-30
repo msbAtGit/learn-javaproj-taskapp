@@ -40,7 +40,7 @@ public class LoginService {
 			fromDb = this.userdao.getUser(user.getName());
 		
 		//No User found hence login has failed
-		if(fromDb.getName() == null || fromDb.getName() == "") {
+		if(fromDb.getName() == null || fromDb.getName().equals("")) {
 			return "NO USER Found";
 		}
 		
