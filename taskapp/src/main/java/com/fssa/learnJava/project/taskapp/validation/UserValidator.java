@@ -2,8 +2,9 @@ package com.fssa.learnJava.project.taskapp.validation;
 
 import java.util.regex.Pattern;
 
-import com.fssa.learnJava.project.taskapp.InvalidUserException;
 import com.fssa.learnJava.project.taskapp.model.User;
+import com.fssa.learnJava.project.taskapp.validation.exceptions.InvalidUserException;
+import com.fssa.learnJava.project.taskapp.validation.exceptions.ValidatorInitializationException;
 
 public class UserValidator {
 

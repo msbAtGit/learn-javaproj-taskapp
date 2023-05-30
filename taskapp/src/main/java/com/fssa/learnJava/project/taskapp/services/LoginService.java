@@ -3,15 +3,13 @@
  */
 package com.fssa.learnJava.project.taskapp.services;
 
-import java.sql.SQLException;
-
-import com.fssa.learnJava.project.taskapp.InvalidUserException;
 import com.fssa.learnJava.project.taskapp.dao.UserDao;
 import com.fssa.learnJava.project.taskapp.dao.exception.DaoException;
 import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.services.exception.ServiceException;
 import com.fssa.learnJava.project.taskapp.validation.UserValidator;
-import com.fssa.learnJava.project.taskapp.validation.ValidatorInitializationException;
+import com.fssa.learnJava.project.taskapp.validation.exceptions.InvalidUserException;
+import com.fssa.learnJava.project.taskapp.validation.exceptions.ValidatorInitializationException;
 
 /**
  * @author BharathwajSoundarara
@@ -30,7 +28,6 @@ public class LoginService {
 		} catch (DaoException | ValidatorInitializationException e) {
 			throw new ServiceException(e);
 		}
-		
 	}
 	
 	public String login (User user) throws ServiceException {

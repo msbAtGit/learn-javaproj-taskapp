@@ -1,4 +1,4 @@
-package com.fssa.learnJava.project.taskapp;
+package com.fssa.learnJava.project.taskapp.validation.exceptions;
 
 public class InvalidUserException extends Exception {
 	/**

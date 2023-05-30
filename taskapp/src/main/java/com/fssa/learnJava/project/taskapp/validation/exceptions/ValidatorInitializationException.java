@@ -1,4 +1,4 @@
-package com.fssa.learnJava.project.taskapp.validation;
+package com.fssa.learnJava.project.taskapp.validation.exceptions;
 
 public class ValidatorInitializationException extends Exception {
 	/**
