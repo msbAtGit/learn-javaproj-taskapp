@@ -11,9 +11,9 @@ public class ConnectionUtil {
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 
 		Connection con = null;
-		String url = "jdbc:mysql://localhost/fssa_hacker";
-		String userName = "root";
-		String passWord = "root";
+		String url = "jdbc:mysql://101.53.132.234/corejava_demoapp_bharath";
+		String userName = "bharath";
+		String passWord = "Bharath123";
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		con = DriverManager.getConnection(url, userName, passWord);
 		return con;

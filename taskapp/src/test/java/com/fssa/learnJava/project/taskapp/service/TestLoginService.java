@@ -18,8 +18,8 @@ class TestLoginService {
 			LoginService ls = new LoginService();
 			User user = new User();
 
-			user.setName("bharathwaj");
-			user.setPassword("mypassword*(");
+			user.setName("bharath_sound");
+			user.setPassword("password007");
 
 			Assertions.assertEquals("SUCCESSFUL",ls.login(user));
 		} catch (ServiceException e) {

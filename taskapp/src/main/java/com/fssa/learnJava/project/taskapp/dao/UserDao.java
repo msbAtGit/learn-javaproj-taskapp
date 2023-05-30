@@ -34,7 +34,7 @@ public class UserDao {
 
 	public boolean createUser(User user) throws DaoException {
 
-		String query = "INSERT INTO USERS (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
+		String query = "INSERT INTO users (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
 
 		try (PreparedStatement pst = connection.prepareStatement(query)) {
 
