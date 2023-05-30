@@ -25,11 +25,9 @@ public class UserDao {
 		try {
 			connection = ConnectionUtil.getConnection();
 			stmt = connection.createStatement();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException | SQLException e) {// Example for multi catch
 			throw new DaoException(e);
 		}
-
 	}
 
 	public boolean createUser(User user) throws DaoException {
@@ -47,7 +45,7 @@ public class UserDao {
 				return true;
 			else
 				return false;
-			// Example for multi catch
+			
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
@@ -121,7 +119,6 @@ public class UserDao {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
