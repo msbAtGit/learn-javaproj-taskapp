@@ -46,4 +46,38 @@ class TestLoginService {
 		
 		
 	}
+	
+	@Test
+	public void testCreateUser() {
+		try {
+			LoginService ls = new LoginService();
+			User user = new User();
+
+			user.setName("TestUser" + System.nanoTime());
+			user.setPassword("Testpass" + System.nanoTime());
+			user.setEmail("Testpass" + System.nanoTime() + "@freshworks.com");
+			Assertions.assertEquals("Registration Successful",ls.registerUser(user));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Exception while tyring to Registeration");
+		}
+	}
+	
+	@Test 
+	public void registerInvalidUser() {
+		try {
+			LoginService ls = new LoginService();
+			User user = new User();
+
+			user.setName("");
+			user.setPassword("");
+			user.setEmail("Testpass" + System.nanoTime() + "@freshworks.com");
+			Assertions.assertEquals("Registration Successful",ls.registerUser(user));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Exception while tyring to Registeration");
+		}
+	}
 }

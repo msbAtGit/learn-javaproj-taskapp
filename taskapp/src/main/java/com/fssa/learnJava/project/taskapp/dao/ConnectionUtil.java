@@ -18,21 +18,4 @@ public class ConnectionUtil {
 		con = DriverManager.getConnection(url, userName, passWord);
 		return con;
 	}
-
-	public static void close(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
-
-		try {
-			if (rs != null) {
-				rs.close();
-			}
-			if (stmt != null) {
-				stmt.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-		} catch (SQLException e) {
-			throw e;
-		}
-	}
 }

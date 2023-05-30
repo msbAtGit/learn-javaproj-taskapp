@@ -85,10 +85,9 @@ public class LoginService {
 					return "Registration Successful";
 				else
 					return "Registration Failed";
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (DaoException e) {
+				throw new ServiceException(e);
 			}
 		}
-		return "Registration Failed";
 	}
 }
