@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.learnJava.project.taskapp.exceptions.ServiceException;
 import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.services.LoginService;
-import com.fssa.learnJava.project.taskapp.services.exception.ServiceException;
 
 class TestLoginService {
 
@@ -27,10 +27,10 @@ class TestLoginService {
 		}
 	}
 	
-	//TODO: Invalid login credentials test case
+	//TODO: Add Invalid login credentials test case
 	
 	@Test
-	public void registerUser() {//TODO: registerUserWithExistingEmail
+	public void registerUserWithExistingEmail() {
 		
 		try {
 			LoginService ls = new LoginService();
@@ -77,6 +77,7 @@ class TestLoginService {
 			fail("Unexcepted success of registration");
 			
 		} catch (ServiceException e) {
+			//TODO: Change the assertTrue to assertEquals of the e.getMessage()
 			Assertions.assertTrue(true);
 		}
 	}

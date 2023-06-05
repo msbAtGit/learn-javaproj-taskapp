@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fssa.learnJava.project.taskapp.services.exception;
+package com.fssa.learnJava.project.taskapp.exceptions;
 
 /**
  * @author BharathwajSoundarara

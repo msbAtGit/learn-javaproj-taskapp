@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.fssa.learnJava.project.taskapp.dao.exception.DaoException;
+import com.fssa.learnJava.project.taskapp.exceptions.DaoException;
+import com.fssa.learnJava.project.taskapp.exceptions.ValidatorInitializationException;
 import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.validation.UserValidator;
-import com.fssa.learnJava.project.taskapp.validation.exceptions.ValidatorInitializationException;
 
 /**
  * @author BharathwajSoundarara

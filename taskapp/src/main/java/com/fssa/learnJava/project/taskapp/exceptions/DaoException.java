@@ -1,4 +1,4 @@
-package com.fssa.learnJava.project.taskapp.dao.exception;
+package com.fssa.learnJava.project.taskapp.exceptions;
 
 public class DaoException extends Exception{
 	/**
