@@ -12,18 +12,20 @@ import com.fssa.learnJava.project.taskapp.model.User;
 import com.fssa.learnJava.project.taskapp.validation.UserValidator;
 
 /**
+ * A class for helping User to login and register
  * @author BharathwajSoundarara
  *
  */
 
-//TODO: Rename LoginService as UserService for generic purpose naming Convention
-public class LoginService {
+//Rename LoginService as UserService for generic purpose naming Convention
+//Always keep the class names in nouns
+public class UserService {
 
 	private UserDao userdao;
 	private UserValidator userValidator;
 	private final int minPasswordLen = 8;
 
-	public LoginService() throws ServiceException {
+	public UserService() throws ServiceException {
 		try {
 			this.userdao = new UserDao();
 			this.userValidator = new UserValidator(this.minPasswordLen);

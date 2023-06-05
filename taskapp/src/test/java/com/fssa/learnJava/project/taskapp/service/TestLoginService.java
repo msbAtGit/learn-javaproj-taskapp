@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.learnJava.project.taskapp.exceptions.ServiceException;
 import com.fssa.learnJava.project.taskapp.model.User;
-import com.fssa.learnJava.project.taskapp.services.LoginService;
+import com.fssa.learnJava.project.taskapp.services.UserService;
 
 class TestLoginService {
 
@@ -15,7 +15,7 @@ class TestLoginService {
 	public void testLogin() {
 		
 		try {
-			LoginService ls = new LoginService();
+			UserService ls = new UserService();
 			User user = new User();
 
 			user.setName("bharath_sound");
@@ -33,7 +33,7 @@ class TestLoginService {
 	public void registerUserWithExistingEmail() {
 		
 		try {
-			LoginService ls = new LoginService();
+			UserService ls = new UserService();
 			User user = new User();
 
 			user.setName("vinit");
@@ -51,7 +51,7 @@ class TestLoginService {
 	@Test
 	public void testCreateUser() {
 		try {
-			LoginService ls = new LoginService();
+			UserService ls = new UserService();
 			User user = new User();
 
 			user.setName("TestUser" + System.nanoTime());
@@ -67,7 +67,7 @@ class TestLoginService {
 	@Test 
 	public void registerInvalidUser() {
 		try {
-			LoginService ls = new LoginService();
+			UserService ls = new UserService();
 			User user = new User();
 
 			user.setName("");

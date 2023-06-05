@@ -6,7 +6,7 @@ package com.fssa.learnJava.project.taskapp.driver;
 import java.util.Scanner;
 
 import com.fssa.learnJava.project.taskapp.model.User;
-import com.fssa.learnJava.project.taskapp.services.LoginService;
+import com.fssa.learnJava.project.taskapp.services.UserService;
 
 /**
  * @author BharathwajSoundarara
