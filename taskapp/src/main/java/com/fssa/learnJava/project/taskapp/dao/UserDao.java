@@ -86,7 +86,7 @@ public class UserDao {
 
 					// Best Practice remove the while loop and use if condition since its a
 					// unique row with only 1 value
-					// Step 06: Iterate the result
+					// Instead of Iterating the result
 					if (rs.next()) {
 						userFromDB = new User();
 						userFromDB.setId(rs.getInt("user_id"));

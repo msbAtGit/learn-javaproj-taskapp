@@ -38,22 +38,24 @@ public class UserService {
 
 		User fromDb;
 		try {
-//			this.userValidator.validate(user);
+			this.userValidator.validate(user);
 			fromDb = this.userdao.getUser(user.getName());
-
+			
 			// No User found hence login has failed
-			// TODO: Do a trimming before doing empty or nullity checks
-			if (fromDb.getName() == null || fromDb.getName().equals("")) {
+			// The above method returns null if no user is found
+			
+			if(fromDb == null) {
 				return "NO USER Found";
 			}
 
-			// TODO: Check for nullity check
+			
 			else if (fromDb.getPassword().equals(user.getPassword())) {
 				return "SUCCESSFUL";
 			} else {
 				return "Invalid Login Credentials";
 			}
-		} catch (DaoException ex) {
+		} catch (DaoException | InvalidUserException ex) {
+			//TODO: Add logger for stack trace
 			throw new ServiceException(ex);
 		}
 
