@@ -33,7 +33,8 @@ public class UserDao {
 	}
 
 	public boolean createUser(User user) throws DaoException {
-		// TODO: Inside each method open the connection and then close the connection.
+		// TODO: Inside each method open the connection 
+		// and then close the connection.
 		try {
 			userValidator.validate(user);
 		} catch (InvalidUserException e1) {
@@ -42,7 +43,9 @@ public class UserDao {
 		}
 
 		try (Connection con = ConnectionUtil.getConnection()) {
-			String query = "INSERT INTO users (user_name, email_id, additional_info, password) VALUES ( ?, ?, ? ,? );";
+			String query = "INSERT INTO users (user_name, email_id, "
+					+ "additional_info, "
+					+ "password) VALUES ( ?, ?, ? ,? );";
 
 			try (PreparedStatement pst = con.prepareStatement(query)) {
 
