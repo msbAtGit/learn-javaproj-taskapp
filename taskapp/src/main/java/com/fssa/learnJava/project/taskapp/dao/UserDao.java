@@ -107,7 +107,7 @@ public class UserDao {
 
 	public User getUserByEmail(String email) throws DaoException {
 
-		User userFromDB = new User();
+		User userFromDB = null;
 		final String selectQuery = "SELECT user_id,user_name,password,email_id,additional_info FROM users WHERE email_id = ?";
 
 		try (Connection connection = ConnectionUtil.getConnection()) {
@@ -120,7 +120,9 @@ public class UserDao {
 				try (ResultSet rs = pst.executeQuery()) {
 
 					// Step 06: Iterate the result
-					while (rs.next()) {
+					if (rs.next()) {
+						
+						userFromDB = new User();
 						userFromDB.setId(rs.getInt("user_id"));
 						userFromDB.setName(rs.getString("user_name"));
 						userFromDB.setPassword(rs.getString("password"));

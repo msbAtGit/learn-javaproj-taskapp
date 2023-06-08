@@ -80,7 +80,7 @@ public class UserService {
 
 		// TODO: Add user_name, email and attributes first before adding logic based
 		// business logic
-		if (userFromDb.getEmail() != null && userFromDb.getEmail().equals(user.getEmail())) {
+		if (userFromDb != null) {
 			return "Email id " + user.getEmail() + " is already registered";
 		} else {
 			try {

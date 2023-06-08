@@ -37,7 +37,7 @@ public class TestTaskValidator {
 			fail("Exception while tyring to validate task");
 		}
 	}
-	
+
 	@Test
 	public void testNullTaskValidation() {
 
@@ -50,7 +50,6 @@ public class TestTaskValidator {
 		}
 	}
 
-	
 	@Test
 	public void testInvalidTaskIDCheck() {
 
@@ -69,7 +68,7 @@ public class TestTaskValidator {
 			assertEquals("Id cannot be Zero or negative", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testInvalidTaskNameCheck() {
 
@@ -86,6 +85,83 @@ public class TestTaskValidator {
 			taskValidator.validate(task);
 		} catch (InvalidTaskException e) {
 			assertEquals("Name cannot be empty", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testInvalidTaskPriority() {
+
+		try {
+			TaskValidator taskValidator = new TaskValidator();
+			Task task = new Task();
+
+			task.setId(19);
+			task.setName("Name");
+			task.setCreateDate(LocalDate.now());
+			task.setPriority(null);
+			task.setStatus(TaskStatus.STARTED);
+			task.setEstimatedNumberOfHrs(2.0);
+			taskValidator.validate(task);
+		} catch (InvalidTaskException e) {
+			assertEquals("Priority can't be null", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testInvalidTaskCreateDate() {
+		// Checking if assertion succeeds if the CreateDate is null and
+		// Validator throws an exception
+		try {
+			TaskValidator taskValidator = new TaskValidator();
+			Task task = new Task();
+
+			task.setId(19);
+			task.setName("Name");
+			task.setCreateDate(null);
+			task.setPriority(TaskPriority.MEDIUM);
+			task.setStatus(TaskStatus.STARTED);
+			task.setEstimatedNumberOfHrs(2.0);
+			taskValidator.validate(task);
+		} catch (InvalidTaskException e) {
+			assertEquals("Create date can't be null", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testInvalidTaskId() {
+		// Sending an negative number for the validator to throw an exception
+		try {
+			TaskValidator taskValidator = new TaskValidator();
+			Task task = new Task();
+
+			task.setId(-19);
+			task.setName("Name");
+			task.setCreateDate(LocalDate.now());
+			task.setPriority(TaskPriority.HIGH);
+			task.setStatus(TaskStatus.STARTED);
+			task.setEstimatedNumberOfHrs(2.0);
+			taskValidator.validate(task);
+		} catch (InvalidTaskException e) {
+			assertEquals("Id cannot be Zero or negative", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testInvalidEstdHrs() {
+		// Sending an negative number for the validator to throw an exception
+		try {
+			TaskValidator taskValidator = new TaskValidator();
+			Task task = new Task();
+
+			task.setId(19);
+			task.setName("Name");
+			task.setCreateDate(LocalDate.now());
+			task.setPriority(TaskPriority.HIGH);
+			task.setStatus(TaskStatus.STARTED);
+			task.setEstimatedNumberOfHrs(-2.0);
+			taskValidator.validate(task);
+		} catch (InvalidTaskException e) {
+			assertEquals("EstimatedNumberOfHrs cannot be Zero or negative", e.getMessage());
 		}
 	}
 
