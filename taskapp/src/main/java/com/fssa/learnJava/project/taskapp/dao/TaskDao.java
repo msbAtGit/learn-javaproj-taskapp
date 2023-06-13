@@ -22,6 +22,7 @@ import com.fssa.learnJava.project.taskapp.validation.TaskValidator;
  */
 public class TaskDao {
 	TaskValidator taskValidator = null;
+
 //	DateTimeFormatter dateTimeFormatter = null;
 	public TaskDao(TaskValidator taskValidator) {
 		this.taskValidator = taskValidator;
@@ -31,23 +32,24 @@ public class TaskDao {
 	}
 
 	public boolean addTask(Task task) throws DaoException {
+		// TODO: Refactor to include User id in Task
 		try {
+			// TODO: Move the validator should be in service layer
 			taskValidator.validate(task);
 		} catch (InvalidTaskException e1) {
 			throw new DaoException(e1);
 		}
 		try (Connection con = ConnectionUtil.getConnection()) {
-			String query = "INSERT INTO tasks(task_name, task_status, "
-					+ "task_priority, createDate, estdHrs)" + 
-								
+			String query = "INSERT INTO tasks(task_name, task_status, " + "task_priority, createDate, estdHrs)" +
+
 					" VALUES ( ?, ?, ? ,?, ?);";
-			try(PreparedStatement pst = con.prepareStatement(query)) {
+			try (PreparedStatement pst = con.prepareStatement(query)) {
 				pst.setString(1, task.getName());
 				pst.setString(2, task.getStatus().toString());
 				pst.setString(3, task.getPriority().toString());
 				pst.setString(4, task.getCreateDate().toString());
 				pst.setDouble(5, task.getEstimatedNumberOfHrs());
-				
+
 				int rows2 = pst.executeUpdate();
 				if (rows2 > 0) {
 					return true;
@@ -55,13 +57,14 @@ public class TaskDao {
 					return false;
 				}
 			}
-			
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Change this to logger
+			// Refer:
+	// https://docs.oracle.com/javase/tutorial/essential/exceptions/chained.html
 			e.printStackTrace();
 			throw new DaoException("Issue in creating task object", e);
 		}
-		
+
 	}
 }

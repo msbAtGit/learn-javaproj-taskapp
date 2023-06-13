@@ -39,7 +39,6 @@ public class TestTaskDao {
 		try {
 			assertTrue(taskDao.addTask(task));
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("Error while testing add task");
 		}
