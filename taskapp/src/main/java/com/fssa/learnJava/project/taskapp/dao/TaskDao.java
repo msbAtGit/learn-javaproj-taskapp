@@ -21,11 +21,12 @@ import com.fssa.learnJava.project.taskapp.validation.TaskValidator;
  *
  */
 public class TaskDao {
-	TaskValidator taskValidator = null;
-
+//	TaskValidator taskValidator = null;
+	public TaskDao() {
+		
 //	DateTimeFormatter dateTimeFormatter = null;
-	public TaskDao(TaskValidator taskValidator) {
-		this.taskValidator = taskValidator;
+//	public TaskDao(TaskValidator taskValidator) {
+//		this.taskValidator = taskValidator;
 //		DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
 //		dateTimeFormatter = builder.toFormatter();
 //		dateTimeFormatter.
@@ -33,12 +34,12 @@ public class TaskDao {
 
 	public boolean addTask(Task task) throws DaoException {
 		// TODO: Refactor to include User id in Task
-		try {
-			// TODO: Move the validator should be in service layer
-			taskValidator.validate(task);
-		} catch (InvalidTaskException e1) {
-			throw new DaoException(e1);
-		}
+//		try {
+//			// TODO: Move the validator should be in service layer
+//			taskValidator.validate(task);
+//		} catch (InvalidTaskException e1) {
+//			throw new DaoException(e1);
+//		}
 		try (Connection con = ConnectionUtil.getConnection()) {
 			String query = "INSERT INTO tasks(task_name, task_status, " + "task_priority, createDate, estdHrs)" +
 

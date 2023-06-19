@@ -27,7 +27,7 @@ public class TestTaskDao {
 	 */
 	@Test
 	public void testAddTask() {
-		TaskDao taskDao = new TaskDao(new TaskValidator());
+		TaskDao taskDao = new TaskDao();
 		Task task = new Task();
 		task.setId(1);
 		//Keeping the task unique by appending the SystemTime
