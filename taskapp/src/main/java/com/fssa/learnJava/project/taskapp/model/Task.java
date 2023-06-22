@@ -5,19 +5,22 @@ import java.time.LocalDate;
 /**
  * 
  * A model class for tracking Task
+ * 
  * @author BharathwajSoundarara
  *
  */
 public class Task {
 	private int id;
 	private String name;
-	// TODO: Change the status as an Enum
+	// Best Practice: Change the status as an Enum as we now Status have fixed
+	// list of values
 	private TaskStatus status;
 	private LocalDate createDate;
 	private TaskPriority priority;
 	private double estimatedNumberOfHrs;
+	private User createdByUser; // TODO: change the variable as Created by
 
-	//Setters and getters for each of the member variables
+	// Setters and getters for each of the member variables
 	public int getId() {
 		return id;
 	}
@@ -64,6 +67,14 @@ public class Task {
 
 	public void setEstimatedNumberOfHrs(double estimatedNumberOfHrs) {
 		this.estimatedNumberOfHrs = estimatedNumberOfHrs;
+	}
+
+	public User getCreatedByUser() {
+		return createdByUser;
+	}
+
+	public void setCreatedByUser(User user) {
+		this.createdByUser = user;
 	}
 
 }

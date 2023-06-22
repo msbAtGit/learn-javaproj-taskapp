@@ -9,9 +9,15 @@ import com.fssa.learnJava.project.taskapp.model.User;
 public class UserValidator {
 
 	private int minLength;
-
+	
+	private static final int defaultLength = 8;
 	private final String emailValidationRegEx = "^(.+)@(\\S+)$";
-
+	
+	public UserValidator() {
+		this.minLength = defaultLength;
+	}
+	
+	
 	public UserValidator(int minLength) throws ValidatorInitializationException {
 		if (minLength < 0) {
 			throw new ValidatorInitializationException("Invalid length");

@@ -9,10 +9,12 @@ import com.fssa.learnJava.project.taskapp.exceptions.InvalidUserException;
 import com.fssa.learnJava.project.taskapp.exceptions.ServiceException;
 import com.fssa.learnJava.project.taskapp.exceptions.ValidatorInitializationException;
 import com.fssa.learnJava.project.taskapp.model.User;
+import com.fssa.learnJava.project.taskapp.model.UserConstants;
 import com.fssa.learnJava.project.taskapp.validation.UserValidator;
 
 /**
  * A class for helping User to login and register
+ * 
  * @author BharathwajSoundarara
  *
  */
@@ -40,22 +42,21 @@ public class UserService {
 		try {
 			this.userValidator.validate(user);
 			fromDb = this.userdao.getUser(user.getName());
-			
+
 			// No User found hence login has failed
 			// The above method returns null if no user is found
-			
-			if(fromDb == null) {
-				return "NO USER Found";
+
+			if (fromDb == null) {
+				return UserConstants.NO_USER_FOUND;
 			}
 
-			
 			else if (fromDb.getPassword().equals(user.getPassword())) {
-				return "SUCCESSFUL";
+				return UserConstants.SUCCESSFUL;
 			} else {
-				return "Invalid Login Credentials";
+				return UserConstants.INVALID_LOGIN;
 			}
 		} catch (DaoException | InvalidUserException ex) {
-			//TODO: Add logger for stack trace
+			// TODO: Add logger for stack trace
 			throw new ServiceException(ex);
 		}
 
@@ -65,32 +66,49 @@ public class UserService {
 		User userFromDb;
 		try {
 			if (!userValidator.validate(user)) {
-				throw new ServiceException("invalid User");
+				throw new ServiceException(UserConstants.INVALID_USER);
 			}
 		} catch (InvalidUserException e1) {
-			throw new ServiceException("Invalid User", e1);
+			throw new ServiceException(UserConstants.INVALID_USER, e1);
 		}
 
 		try {
 			userFromDb = userdao.getUserByEmail(user.getEmail());
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
+			// TODO Add logic to integrate logger to print the stack trace
 			throw new ServiceException(e);
 		}
 
-		// TODO: Add user_name, email and attributes first before adding logic based
+		// TODO: Add user_name, email and attributes first before adding logic
+		// based
 		// business logic
 		if (userFromDb != null) {
 			return "Email id " + user.getEmail() + " is already registered";
 		} else {
 			try {
 				if (userdao.createUser(user))
-					return "Registration Successful";
+					return UserConstants.REG_SUCCESS;
 				else
-					return "Registration Failed";
+					return UserConstants.REG_FAILED;
 			} catch (DaoException e) {
 				throw new ServiceException(e);
 			}
+		}
+	}
+
+	/**
+	 * Additional method to validate the user to be used by other service
+	 * classes if necessary
+	 * 
+	 * @param user
+	 * @return true if the passed user is valid
+	 * @throws ServiceException
+	 */
+	public boolean validateUser(User user) throws ServiceException {
+		try {
+			return userValidator.validate(user);
+		} catch (InvalidUserException e) {
+			throw new ServiceException(e);
 		}
 	}
 }

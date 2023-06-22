@@ -18,7 +18,7 @@ import com.fssa.learnJava.project.taskapp.model.TaskStatus;
 public class TestTaskValidator {
 	// Sending a valid task and
 	// checking if the TaskValidator is working correctly
-
+//	public User get Vali
 	@Test
 	public void testValidTask() {
 
@@ -33,6 +33,7 @@ public class TestTaskValidator {
 			task.setStatus(TaskStatus.STARTED);
 			task.setEstimatedNumberOfHrs(2.0);
 			assertTrue(taskValidator.validate(task));
+			
 		} catch (InvalidTaskException e) {
 			fail("Exception while tyring to validate task");
 		}
