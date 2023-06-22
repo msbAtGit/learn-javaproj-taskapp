@@ -6,10 +6,32 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * ConnectionUtil class for getting the MySQL Connection
+ * 
+ * @author BharathwajSoundarara
+ *
+ */
 public class ConnectionUtil {
-
-	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-
+	
+	/**
+	 * Making the private constructor to avoid Code Smells
+	 */
+	private ConnectionUtil() {
+		
+	}
+	/**
+	 * Gets the Connection to run SQLs from Java to MySQL
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static Connection getConnection()
+			throws SQLException, ClassNotFoundException {
+		
+		// TODO: Remove the hard coding of username and password and use better 
+		// TODO: Either configurations or command line arguments to store them
+		// TODO: Add cryptography layer if need be
 		Connection con = null;
 		String url = "jdbc:mysql://101.53.132.234/corejava_demoapp_bharath";
 		String userName = "bharath";
@@ -19,10 +41,9 @@ public class ConnectionUtil {
 		return con;
 	}
 
-	public static void close(Connection conn, 
-							 Statement stmt, 
-							 ResultSet rs) throws SQLException {
-										
+	public static void close(Connection conn, Statement stmt, ResultSet rs)
+			throws SQLException {
+
 		if (rs != null) {
 			rs.close();
 		}
