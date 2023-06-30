@@ -22,7 +22,7 @@ public class ConnectionUtil {
 	}
 	/**
 	 * Gets the Connection to run SQLs from Java to MySQL
-	 * @return
+	 * @return Connection to passed configurations
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
